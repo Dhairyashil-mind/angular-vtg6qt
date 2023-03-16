@@ -1,0 +1,74 @@
+.close-button {
+    float: right;
+    
+    mat-icon {
+        color: #000000 !important;
+    }
+}
+
+.mdc-dialog__content {
+    color: #000000 !important;
+}
+
+.email-body {
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+.dialog-title {
+    margin-top: 10px;
+}
+
+.form-field-container {
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}
+
+textarea.ta10em {
+    height: 10em;
+}
+
+.boxsizingBorder {
+    -webkit-box-sizing:
+     border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.example-chip-list {
+    width: 100%;
+}
+
+.asterisk-before:before {
+    content: "*";
+    color: #ff0000;
+}
+
+.error-message {
+    color: #ff0000;
+}
+
+.valid-email {
+    background-color: #3f51b5 !important;
+}
+
+.invalid-email {
+    background-color: #ff0000 !important;
+}
+
+.email-error {
+    font-size: 12px;
+    margin-top: -25px;
+    padding-left: 15px;
+}
+
+.mdc-evolution-chip__text-label.mat-mdc-chip-action-label, mat-icon {
+    color: #fff !important;
+}

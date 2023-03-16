@@ -1,0 +1,68 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon">close</mat-icon>
+</button>
+
+<h1 class="dialog-title mt-2" align="center">Invite Candidates</h1>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content>
+    <form class="example-form" [formGroup]="invitationForm">
+        <div class="row">
+            <div class="col-lg-1 col-md-2 mt-3">
+                <label class="asterisk-before">To: </label>
+            </div>
+            <div class="col-lg-11 col-md-10">
+                <mat-form-field class="example-chip-list">
+                    <mat-chip-grid #chipGrid aria-label="Enter emails">
+                        <mat-chip-option *ngFor="let email of emails; trackBy: trackByMethod" (removed)="remove(email)"
+                            [ngClass]="email.valid ? 'valid-email' : 'invalid-email'"
+                            [matTooltip]="!email.valid ? 'Email address is incorrect': ''">
+                            {{email.id}}
+                            <button tabIndex="0" matChipRemove [attr.aria-label]="'remove ' + email.id">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-option>
+
+                        <input placeholder="Enter email address and press enter" formControlName="emails" [matChipInputFor]="chipGrid"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)" required="true" />
+
+                    </mat-chip-grid>
+
+                </mat-form-field>
+                <mat-error tabindex="0" class="email-error"
+                    *ngIf="emails.length === 0 && (invitationForm.get('emails')?.dirty || invitationForm.get('emails')?.touched)">
+                    Email are is required.
+                </mat-error>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-1 col-md-2 mt-3">
+                <label class="asterisk-before">Subject: </label>
+            </div>
+            <div class="col-lg-11 col-md-10">
+                <mat-form-field>
+                    <input matInput formControlName="subject" [errorStateMatcher]="matcher" />
+                    <mat-error tabindex="0"
+                        *ngIf="invitationForm.get('subject')?.errors?.['required'] && (invitationForm.get('subject')?.dirty || invitationForm.get('subject')?.touched)">
+                        Email subject is required.
+                    </mat-error>
+                    <mat-error tabindex="0" *ngIf="invitationForm.get('subject')?.errors?.['maxlength']">
+                        Email subject should not exceed 120 characters.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div tabindex="0" class="email-body" [innerHTML]="sanitizedHtml"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="sendMail()" [disabled]="invitationForm.invalid">Send</button>
+</div>
